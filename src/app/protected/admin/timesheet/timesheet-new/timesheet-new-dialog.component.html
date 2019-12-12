@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title">Create Timesheet</h4>
+</div>
+
+<div class="modal-body">
+  <app-loading [condition]="isLoadingUser"></app-loading>
+  
+  <form [formGroup]="form" class="form-horizontal">
+
+    <div class="row">
+      <label class="col-md-3 col-form-label" style="padding-top: 23px">User:</label>
+      <div class="col-md-9">
+        <div class="form-group">
+          <select id="UserId" class="selectpicker" data-style="select-with-transition" formControlName="UserId" [class.is-invalid]="isInvalidField('UserId')">
+            <option [value]="currentUser.UserId">SELF</option>
+            <option *ngFor="let user of users" [value]="user.UserId">{{user.UserName}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="col-md-3 col-form-label">Week Ending:</label>
+      <div class="col-md-9">
+        <div class="form-group weekpicker" [class.has-danger]="isInvalidField('WeekEnding')">
+          <input type="text" class="form-control" formControlName="WeekEnding" id="WeekEnding" style="display: none">
+          <input type="text" class="form-control" id="Week" autocomplete="off" (click)="onPickDate()" readonly>
+          <ng-container *ngIf="isInvalidField('WeekEnding')">
+            <label *ngIf="form.get('WeekEnding').errors?.required" class="error">Please select period of week</label>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="onCreateTimesheet()">Create Timesheet</button>
+</div>

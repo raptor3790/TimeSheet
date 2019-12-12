@@ -1,0 +1,51 @@
+<div class="content">
+  <app-loading [condition]="isLoading"></app-loading>
+
+  <div class="container-fluid">
+
+    <button type="button" class="btn btn-primary btn-block btn-add" (click)="createTimesheet()">
+      <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;&nbsp;Create Timesheet
+    </button>
+    <br />
+    
+    <!-- Timesheet Table Start -->
+    <div class="card">
+      <div class="card-header card-header-icon card-header-info">
+        <div class="card-icon">
+          <i class="material-icons">access_time</i>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="table-responsive">
+          <table id="timesheet-table" class="table table-striped text-center table-hover">
+            <thead>
+              <tr>
+                <th>TimesheetId</th>
+                <th>WeekEnding</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let timesheet of timesheets; let rowIndex = index" 
+                (click)="onEdit(timesheet.TimesheetId)">
+                <td>{{timesheet.TimesheetId}}</td>
+                <td>{{timesheet.WeekEnding | date:'dd/MM/yyyy'}}</td>
+                <td class="{{timesheet.Status}}">{{timesheet.Status}}</td>
+                <td class="td-actions">
+                  <button *ngIf="timesheet.Status == 'Draft'" type="button" rel="tooltip" class="btn btn-danger"
+                    (click)="delete($event, timesheet.TimesheetId)">
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!--./ Timesheet Table End -->
+  </div>
+
+</div>

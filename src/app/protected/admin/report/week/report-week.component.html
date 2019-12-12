@@ -1,0 +1,88 @@
+<div class="content">
+  <div class="container-fluid">
+
+    <app-loading [condition]="isLoadingProject"></app-loading>
+
+    <!-- 1st Row Start -->
+    <div class="card">
+      <div class="card-body">
+        <form class="form-horizontal" [formGroup]="form" (ngSubmit)="onSubmit($event)">
+          <div class="row">
+
+            <!-- Start Date -->
+            <div class="col-md-4">
+              <div class="form-group bmd-form-group" [class.has-danger]="isInvalidField('startDate')">
+                <label for="startDate" class="bmd-label-floating">Start Date</label>
+                <input type="text" class="form-control datepicker" formControlName="startDate" id="startDate" autocomplete="off" />
+                <ng-container *ngIf="isInvalidField('startDate')">
+                  <label *ngIf="form.get('startDate').errors?.required" class="error">Please select Start Date</label>
+                </ng-container>
+              </div>
+            </div>
+            <!--./ Start Date -->
+
+            <!-- End Date -->
+            <div class="col-md-4">
+              <div class="form-group bmd-form-group" [class.has-danger]="isInvalidField('endDate')">
+                <label for="endDate" class="bmd-label-floating">End Date</label>
+                <input type="text" class="form-control datepicker" formControlName="endDate" id="endDate" autocomplete="off" />
+                <ng-container *ngIf="isInvalidField('endDate')">
+                  <label *ngIf="form.get('endDate').errors?.required" class="error">Please select End Date</label>
+                </ng-container>
+              </div>
+            </div>
+            <!--./ End Date -->
+
+            <div class="col-md-1">
+              <button type="submit" class="btn btn-success">Search</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!--./ 1st Row End -->
+
+    <!-- 2nd Row Start -->
+    <div class="card">
+      <div class="card-body">
+        <canvas id="barChart" height="100vh"></canvas>
+      </div>
+    </div>
+    <!-- /.2nd Row End -->
+
+    <!-- 3rd Row Start -->
+    <div class="card">
+      <div class="card-header card-header-icon card-header-info">
+        <div class="card-icon">
+          <i class="material-icons">attach_money</i>
+        </div>
+      </div>
+      
+      <!-- box-body -->
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table no-margin" id="report-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let report of paids">
+                <td>
+                  {{report.WeekEnding}}
+                </td>
+                <td>
+                  £{{report.TotalCost | number : '0.2-2'}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.3rd Row End -->
+  </div>
+</div>

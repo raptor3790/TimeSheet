@@ -1,0 +1,58 @@
+<div class="content">
+  <app-loading [condition]="isLoading"></app-loading>
+  
+  <div class="container-fluid">
+
+      <button type="button" class="btn btn-primary btn-add" (click)="createExpenseReport()">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;&nbsp;Create Expense Report
+      </button>
+      
+      <!-- Project Table Start -->
+      <div class="card ">
+        <div class="card-header card-header-icon card-header-info">
+          <div class="card-icon">
+            <i class="material-icons">attach_money</i>
+          </div>
+        </div>
+
+        <div class="card-body ">
+          <div class="table-responsive">
+            <table id="expense-report-table" class="table table-striped text-center table-hover">
+              <thead>
+                <tr>
+                  <th>Expense Id</th>
+                  <th>User Name</th>
+                  <th>Sub Project</th>
+                  <th>Date Submitted</th>
+                  <th>Total Cost</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of espenseReports; let rowIndex = index" 
+                  (click)="onEdit(item.UserId, item.ExpenseReportId)">
+                  <td>{{item.ExpenseReportId}}</td>
+                  <td>{{item.UserName}}</td>
+                  <td>{{item.SubProjectName}}</td>
+                  <td>{{item.SubmitDate}}</td>
+                  <td>£{{item.TotalCost=='.00'? '0.00': item.TotalCost}}</td>
+                  <td class="{{item.Status}}">{{item.Status}}</td>
+                  <td class="td-actions">
+                    <button *ngIf="item.Status == 'Draft'" type="button" rel="tooltip" class="btn btn-danger"
+                      (click)="delete($event, item.ExpenseReportId)">
+                      <i class="material-icons">close</i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+      <!--./ Project Table End -->
+
+  </div>
+</div>
+  

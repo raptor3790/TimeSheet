@@ -1,0 +1,112 @@
+<div class="content">
+
+  <!-- Main content Start-->
+  <div class="container-fluid">
+
+    <!-- Info boxes Start-->
+    <div class="row">
+      <!-- Info_1 Start -->
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="card card-stats">
+          <div class="card-header card-header-success card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">weekend</i>
+            </div>
+            <p class="card-category">TRIAL COMPANIES</p>
+            <h3 class="card-title">{{trialCompanies.length}}</h3>
+          </div>
+          <div class="card-footer"></div>
+        </div>
+      </div>
+      <!-- /.Info_1 End -->
+
+      <!-- Info_2 Start -->
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="card card-stats">
+          <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">weekend</i>
+            </div>
+            <p class="card-category">BRONZE COMPANIES</p>
+            <h3 class="card-title">{{bronzeCompanies.length}}</h3>
+          </div>
+          <div class="card-footer"></div>
+        </div>
+      </div>
+      <!-- /.Info_2 End -->
+
+      <!-- fix for small devices only -->
+      <div class="clearfix visible-sm-block"></div>
+
+      <!-- Info_3 Start -->
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="card card-stats">
+          <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">weekend</i>
+            </div>
+            <p class="card-category">SILVER COMPANIES</p>
+            <h3 class="card-title">{{silverCompanies.length}}</h3>
+          </div>
+          <div class="card-footer"></div>
+        </div>
+      </div>
+      <!-- /.Info_3 Start -->
+
+      <!-- Info_4 Start -->
+      <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="card card-stats">
+          <div class="card-header card-header-rose card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">weekend</i>
+            </div>
+            <p class="card-category">GOLD COMPANIES</p>
+            <h3 class="card-title">{{goldCompanies.length}}</h3>
+          </div>
+          <div class="card-footer"></div>
+        </div>
+      </div>
+      <!-- /.Info_4 End -->
+    </div>
+    <!-- /.Info boxes End -->
+
+    <!-- 3nd Row Start -->
+    <div class="card">
+      <div class="card-header card-header-info card-header-icon">
+        <div class="card-icon">
+          <i class="material-icons">assignment</i>
+        </div>
+        <h3 class="card-title">Companies</h3>
+      </div>
+      
+      <div class="card-body">
+        <table class="table no-margin">
+          <thead>
+            <tr>
+              <th>OrgId</th>
+              <th>Company Name</th>
+              <th>Owner</th>
+              <th>Membership</th>
+              <th>Created At</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="test" *ngFor="let company of companies" [routerLink]="['/super/setting', company.OrgId]">
+              <td>{{company.OrgId}}</td>
+              <td>{{company.CompanyName}}</td>
+              <td>{{company.Email}}</td>
+              <td>{{company.Membership}}</td>
+              <td>
+                {{company.created_at}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- /.table-responsive -->
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.3nd Row End -->
+  </div>
+  <!-- /.Main content End -->
+</div>

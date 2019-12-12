@@ -1,0 +1,216 @@
+<!-- action button -->
+<div class="action-container">
+  <div class="container text-right">
+    <div class="action-link">
+      <a routerLink="/login" class="nav-link">
+        <i class="material-icons">lock</i> Login
+      </a>
+    </div>
+  </div>
+</div>
+<!--./ action button -->
+
+<div class="wrapper wrapper-full-page">
+  <div class="page-header register-page header-filter" filter-color="black"
+    style="background-image: url('../../assets/img/register.jpg')">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 ml-auto mr-auto">
+          <div class="card card-signup">
+            <h2 class="card-title text-center">Register</h2>
+            <div class="card-body">
+
+              <!-- form start -->
+              <form class="form login-form" (ngSubmit)="onSubmit()" [formGroup]="form">
+                <!-- first row -->
+                <div class="row">
+                  <div class="col-md-5 ml-auto">
+                    <div class="form-group has-default" [class.has-danger]="isInvalidField('FirstName')">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">face</i>
+                          </span>
+                        </div>
+                        <input type="text" formControlName="FirstName" class="form-control" id="inputFirstName"
+                          placeholder="First Name...">
+                      </div>
+                      <div [hidden]="!errors?.FirstName">
+                        <label class="error">{{errors?.FirstName}}</label>
+                      </div>
+                      <ng-container *ngIf="isInvalidField('FirstName')">
+                        <label *ngIf="form.get('FirstName').errors?.required" class="error">First Name is
+                          required</label>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5 mr-auto">
+                    <div class="form-group has-default" [class.has-danger]="isInvalidField('LastName')">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">face</i>
+                          </span>
+                        </div>
+                        <input type="text" formControlName="LastName" class="form-control" id="inputLastName"
+                          placeholder="Last Name...">
+                      </div>
+                      <div [hidden]="!errors?.LastName">
+                        <label class="error">{{errors?.LastName}}</label>
+                      </div>
+                      <ng-container *ngIf="isInvalidField('LastName')">
+                        <label *ngIf="form.get('LastName').errors?.required" class="error">Last Name is required</label>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+                <!--./ first row -->
+
+                <!-- 2nd row -->
+                <div class="row">
+                  <div class="col-md-5 ml-auto">
+                    <div class="form-group has-default" [class.has-danger]="isInvalidField('CompanyName')">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">group</i>
+                          </span>
+                        </div>
+                        <input type="email" formControlName="CompanyName" class="form-control" id="inputCompanyName"
+                          placeholder="Company Name...">
+                      </div>
+                      <div [hidden]="!errors?.CompanyName">
+                        <label class="error">{{errors?.CompanyName}}</label>
+                      </div>
+                      <ng-container *ngIf="isInvalidField('CompanyName')">
+                        <label *ngIf="form.get('CompanyName').errors?.required" class="error">Company Name is
+                          required</label>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5 mr-auto">
+                    <div class="form-group has-default" [class.has-danger]="isInvalidField('Mobile')">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">phone</i>
+                          </span>
+                        </div>
+                        <input type="text" formControlName="Mobile" class="form-control" id="inputMobile"
+                          placeholder="Phone Number...">
+                      </div>
+                      <div [hidden]="!errors?.Mobile">
+                        <label class="error">{{errors?.Mobile}}</label>
+                      </div>
+                      <ng-container *ngIf="isInvalidField('Mobile')">
+                        <label *ngIf="form.get('Mobile').errors?.required" class="error">Phone Number is
+                          required</label>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+                <!--./ 2nd row -->
+
+                <!-- 3rd row -->
+                <div class="row">
+                  <div class="col-md-10 ml-auto mr-auto">
+                    <div class="form-group has-default" [class.has-danger]="isInvalidField('Email')">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">mail</i>
+                          </span>
+                        </div>
+                        <input type="email" formControlName="Email" class="form-control" id="inputEmail"
+                          placeholder="Email...">
+                      </div>
+                      <div [hidden]="!errors?.Email">
+                        <label class="error">{{errors?.Email}}</label>
+                      </div>
+                      <ng-container *ngIf="isInvalidField('Email')">
+                        <label *ngIf="form.get('Email').errors?.required" class="error">Email is required</label>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+                <!--./ 3rd row -->
+
+                <!-- 4th row -->
+                <div class="row">
+                  <div class="col-md-10 ml-auto mr-auto">
+                    <div class="form-group has-default" [class.has-danger]="isInvalidField('Password')">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">lock</i>
+                          </span>
+                        </div>
+                        <input type="password" formControlName="Password" class="form-control" id="inputPassword"
+                          placeholder="Password...">
+                      </div>
+                      <div [hidden]="!errors?.Password">
+                        <label class="error">{{errors?.Password}}</label>
+                      </div>
+                      <ng-container *ngIf="isInvalidField('Password')">
+                        <label *ngIf="form.get('Password').errors?.required" class="error">Password is required</label>
+                        <label *ngIf="form.get('Password').errors?.minlength" class="error">Password length must be at
+                          least 6</label>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+                <!--./ 4th row -->
+
+                <!-- 5th row -->
+                <div class="row">
+                  <div class="col-md-10 ml-auto mr-auto">
+                    <div class="form-group has-default" [class.has-danger]="isInvalidField('Password_confirmation')">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="material-icons">lock</i>
+                          </span>
+                        </div>
+                        <input type="password" formControlName="Password_confirmation" class="form-control"
+                          id="inputPasswordConfirmation" placeholder="Password Confirmation...">
+                      </div>
+                      <ng-container *ngIf="isInvalidField('Password_confirmation')">
+                        <label *ngIf="form.get('Password_confirmation').errors?.required" class="error">Confirmation
+                          required</label>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+                <!--./ 5th row -->
+
+                <!-- 6th row -->
+                <div class="row">
+                  <div class="col-md-10 ml-auto mr-auto">
+                    <div class="form-group has-default">
+                      <ngx-recaptcha2 #captchaElem (success)="handleSuccess($event)" [size]="'normal'" [hl]="'en'"
+                        [type]="'image'" formControlName="recaptcha">
+                      </ngx-recaptcha2>
+                      <ng-container *ngIf="isInvalidField('recaptcha')">
+                        <label *ngIf="form.get('recaptcha').errors?.required" class="error">Please check captcha</label>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+                <!--./ 6th row-->
+
+                <div class="text-center mt-4">
+                  <img *ngIf="loading" src="assets/img/loading.gif" />
+                  <button type="submit" class="btn btn-primary btn-round mt-4">Sign up</button>
+                </div>
+              </form>
+              <!--./ form end-->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

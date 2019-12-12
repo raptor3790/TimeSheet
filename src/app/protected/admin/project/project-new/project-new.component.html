@@ -1,0 +1,12 @@
+<div class="content">
+
+  <div class="container-fluid">
+    <app-loading [condition]="loading"></app-loading>
+
+    <app-form-alert [message]="message" [success]="success"></app-form-alert>
+    <app-project-form [formType]="formType" (Submit)="save($event)"></app-project-form>
+
+  </div>
+
+</div>
+  

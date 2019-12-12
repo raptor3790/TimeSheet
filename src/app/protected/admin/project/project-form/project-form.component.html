@@ -1,0 +1,157 @@
+<div class="row">
+
+  <!-- project form -->
+  <div class="col-md-6" [ngClass]="{'offset-md-3': formType==0}">
+    <div class="card ">
+      <div class="card-header ">
+        <h4 class="card-title">Project Information</h4>
+      </div>
+
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()" [formGroup]="form" class="form-horizontal">
+
+          <!-- Project Name Field Start -->
+          <div class="row">
+            <label class="col-md-3 col-form-label">Project Name</label>
+            <div class="col-md-8">
+              <div class="form-group has-default" [class.has-danger]="isInvalidField('ProjectName')">
+                <input class="form-control" id="ProjectName" formControlName="ProjectName">
+                <ng-container *ngIf="isInvalidField('ProjectName')">
+                  <label *ngIf="form.get('ProjectName').errors?.required" class="error">Project Name is required</label>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!--./ Project Name Field End -->
+
+          <!-- Client Field Start -->
+          <div class="row">
+            <label class="col-md-3 col-form-label">Client Name</label>
+            <div class="col-md-8">
+              <div class="form-group has-default" [class.has-danger]="isInvalidField('ClientName')">
+                <input class="form-control" id="ClientName" formControlName="ClientName">
+                <ng-container *ngIf="isInvalidField('ClientName')">
+                  <label *ngIf="form.get('ClientName').errors?.required" class="error">Client Name is required</label>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!--./ Client Field End -->
+
+          <!-- Dates Field Start -->
+          <div class="row">
+            <label class="col-md-3 col-form-label">Date</label>
+            <div class="col-md-4">
+              <div class="form-group has-default" [class.has-danger]="isInvalidField('StartDate')">
+                <input type="text" class="form-control" formControlName="StartDate" id="StartDate" placeholder="Start Date" autocomplete="off">
+                <ng-container *ngIf="isInvalidField('StartDate')">
+                  <label *ngIf="form.get('StartDate').errors?.required" class="error">Start date is required</label>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group has-default" [class.has-danger]="isInvalidField('EndDate')">
+                <input type="text" class="form-control" formControlName="EndDate" id="EndDate" placeholder="End Date" autocomplete="off">
+                <ng-container *ngIf="isInvalidField('EndDate')">
+                  <label *ngIf="form.get('EndDate').errors?.required" class="error">End date is required</label>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!--./ Dates Field End -->
+
+          <!-- Budget Field Start -->
+          <div class="row">
+            <label class="col-md-3 col-form-label">Budget(£)</label>
+            <div class="col-md-8">
+              <div class="form-group has-default" [class.has-danger]="isInvalidField('Budget')">
+                <input class="form-control" id="Budget" formControlName="Budget" (input)="calcRemaining()">
+                <ng-container *ngIf="isInvalidField('Budget')">
+                  <label *ngIf="form.get('Budget').errors?.pattern" class="error">Budget must be number</label>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!--./ Budget Field End -->
+
+          <!-- Remaining Field Start -->
+          <div *ngIf="formType==1" class="row">
+            <label class="col-md-3 col-form-label">Remaining(£)</label>
+            <div class="col-md-8">
+              <div class="form-group has-default">
+                <input class="form-control" id="Remaining" readonly [value]="remaining | number : '1.2-2'">
+              </div>
+            </div>
+          </div>
+          <!--./ Remaining Field End -->
+
+          <!-- Status Field Start -->
+          <div *ngIf="formType==1" class="row">
+            <label class="col-md-3 col-form-label">Status</label>
+            <div class="col-md-8">
+              <div class="form-group has-default">
+                <select class="selectpicker" data-style="select-with-transition" id="Status" formControlName="Status">
+                  <option *ngFor="let pStatus of projectStatuses" [value]="pStatus">{{pStatus}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!--./ Status Field End -->
+
+          <div class="card-footer flex-column">
+            <div class="text-center">
+              <button type="submit" class="btn btn-success" style="width: 150px">Save Project</button>&nbsp;&nbsp;
+              <a routerLink="/admin/project" class="btn btn-warning" style="width: 150px">Cancel</a>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--./ project form -->
+
+  <!-- project bar chart -->
+  <div *ngIf="formType==1 && data_obs" class="col-md-6">
+    <app-project-barchart (totalEmit)="onTotalValues($event)"></app-project-barchart>
+  </div>
+  <!-- project bar chart -->
+
+</div>
+
+<ng-container *ngIf="formType==1" >
+
+  <div class="row">
+
+    <!-- sub project -->
+    <div class="col-md-6">
+      <app-subproject-list></app-subproject-list>
+    </div>
+    <!--./ sub project -->
+
+    <!-- project user list -->
+    <div class="col-md-6">
+      <app-project-users-list></app-project-users-list>
+    </div>
+    <!--./ project user list -->
+
+  </div>
+  
+  <div class="row">
+
+    <!-- project expense list -->
+    <div class="col-md-6">
+      <app-project-expenses-list [type]="'project'"></app-project-expenses-list>
+    </div>
+    <!--./ project expense list -->
+
+    <!-- project timesheets -->
+    <div class="col-md-6">
+      <app-project-timesheets-list [type]="'project'"></app-project-timesheets-list>
+    </div>
+    <!-- project timesheets -->
+
+  </div>  
+
+</ng-container>
+

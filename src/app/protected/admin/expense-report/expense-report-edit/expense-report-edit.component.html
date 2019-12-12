@@ -1,0 +1,143 @@
+<div class="content">
+  <app-loading [condition]="isLoading"></app-loading>
+
+  <div class="container-fluid">
+
+    <h3>
+      Expenses for
+      <strong><em>{{currentUser?.FirstName}} {{currentUser?.LastName}}</em></strong>
+    </h3>
+
+    <div class="card">
+      <div class="card-header card-header-icon card-header-info">
+        <div class="card-icon">
+          <i class="material-icons">attach_money</i>
+        </div>
+        <button *ngIf="isDraft() || reEdit" type="button" class="btn btn-success"
+          (click)="onAddExpense()" style="margin-left: 20px;">Add Expense</button>
+        <h4 class="card-title pull-right">Expense Report Status - <strong class="{{espenseStatus}}">{{espenseStatus}}</strong></h4>
+      </div>
+      
+      <div class="card-body">
+
+        <!-- Expense Table Start -->
+        <div class="table-responsive">
+          <table id="timesheet-table" class="table table-striped text-center table-hover"
+            [ngClass]="{'disabled-div': !(isDraft() || isRejected()) && !reEdit}">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Sub Project</th>
+                <th>Expense Type</th>
+                <th>Description</th>
+                <th>Expense Date</th>
+                <th>Cost</th>
+                <th>File</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Input Time Area Start-->
+              <tr *ngFor="let expense of expenses; let rowIndex = index" (click)="onEditExpense(expense.ExpenseId)">
+                <td>{{expense.ProjectName}}</td>
+                <td>{{expense.SubProjectName}}</td>
+                <td>{{expense.Type}}</td>
+                <td>{{expense.Description}}</td>
+                <td>{{expense.ExpenseDate | date:'dd/MM/yyyy'}}</td>
+                <td>{{expense.Cost}}</td>
+                <td (click)="onPreview($event, 'http://localhost/timesheet_api/public/photos/' + expense.Image)">
+                  <img class="expense-image" *ngIf="expense.Image" alt="Image"
+                    [src]="'http://localhost/timesheet_api/public/photos/' + expense.Image" />
+                </td>
+                <td class="td-actions">
+                  <button *ngIf="isDraft() || reEdit" type="button" rel="tooltip" class="btn btn-danger"
+                    (click)="delete($event, expense.ExpenseId)" style="cursor: pointer;">
+                    <i class="material-icons">close</i>
+                  </button>
+                </td>
+              </tr>
+              <!--./ Input Time Area Start-->
+              <tr>
+                <td *ngFor="let number of [0,1,2,3,4,5,6,7]">&nbsp;</td>
+              </tr>
+              <tr>
+                <td *ngFor="let number of [0,1,2,3,4,5]"></td>
+                <td>Total</td>
+                <td>£{{sumOfTotal() | number : '1.2-2'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--./ Expense Table Start -->
+        <br />
+
+        <p>Comments:</p>
+        <textarea class="form-control border" rows="5" [(ngModel)]="notes" 
+          [disabled]="!(isDraft() || isRejected()) && !reEdit"></textarea>
+
+        <div *ngIf="!reEdit">
+          <ng-container *ngIf="isDraft() || isRejected()">
+            <button type="button" class="btn btn-success" (click)="saveNotes()">Save</button>
+            <button type="button" class="btn btn-info" (click)="modifyExpenseReport('Submitted')">Submit</button>
+          </ng-container>
+          <button *ngIf="isApproved()" type="button" class="btn btn-paid" (click)="modifyExpenseReport('Paid')">Paid</button>
+          <button *ngIf="isDraft() || isRejected() || isApproved()" type="button" class="btn btn-danger" (click)="modifyExpenseReport('Cancelled')">Cancel</button>
+          
+          <ng-container *ngIf="isSubmitted()">
+            <button type="button" class="btn btn-success" (click)="modifyExpenseReport('Approved')">Approve</button>
+            <button type="button" class="btn btn-danger" (click)="modifyExpenseReport('Rejected')">Reject</button>
+          </ng-container>
+
+          <button *ngIf="!isDraft()" type="button" class="btn btn-info"
+            (click)="onReEdit()">Edit</button>
+          <p *ngIf="isRejected()"><strong>Rejected Reason: </strong><em>{{rejectReason}}</em></p>
+        </div>
+
+        <div *ngIf="reEdit">
+          <button type="button" class="btn btn-success" (click)="saveNotes()">Save</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Timeline Start -->
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Expense Timeline</h4>
+      </div>
+
+      <div class="card-body">
+        <ul class="timeline">
+          <!-- timeline item start-->
+          <li *ngFor="let timeline of timelines">
+            <i class="fa fa-envelope bg-{{timeline.ExpenseStatus}}"></i>
+        
+            <div class="timeline-item">
+              <span class="time">
+                <i class="fa fa-clock-o"></i> {{timeline.created_at}}</span>
+        
+              <h3 class="timeline-header">
+                {{timeline.UserName}} <span class="{{timeline.ExpenseStatus}}">{{timeline.ExpenseStatus=='Draft' ? 'Created' : timeline.ExpenseStatus}}</span> Expense</h3>
+            </div>
+          </li>
+          <!--/. timeline item end-->
+        </ul>
+      </div>
+    </div>
+    <!--./ Timeline End -->
+
+  </div>
+</div>
+  
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- The Close Button -->
+  <span class="close" data-dismiss="modal">&times;</span>
+
+  <!-- Modal Content (The Image) -->
+  <img class="modal-content" [src]="previewImage">
+
+  <!-- Modal Caption (Image Text) -->
+  <div id="caption"></div>
+</div>

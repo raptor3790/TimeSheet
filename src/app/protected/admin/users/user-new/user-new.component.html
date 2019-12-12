@@ -1,0 +1,149 @@
+<div class="content">
+  <div class="container-fluid">
+
+    <app-loading [condition]="bUpdating"></app-loading>
+
+    <div class="card">
+      <div class="card-body">
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
+          <app-form-alert [message]="message" [success]="success"></app-form-alert>
+
+          <!-- First Name Start -->
+          <div class="row">
+            <label for="FirstName" class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-sm-10">
+              <div class="form-group" [class.has-danger]="isInvalidField('FirstName')">
+                <input class="form-control" id="FirstName" placeholder="First Name" formControlName="FirstName">
+
+                <ng-container *ngIf="isInvalidField('FirstName')">
+                  <label *ngIf="form.get('FirstName').errors?.required" class="error">First Name is required</label>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!--./ First Name End -->
+
+          <!-- Last Name Start -->
+          <div class="row">
+            <label for="LastName" class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-sm-10">
+              <div class="form-group" [class.has-danger]="isInvalidField('LastName')">
+                <input class="form-control" id="LastName" placeholder="Last Name" formControlName="LastName">
+
+                <ng-container *ngIf="isInvalidField('LastName')">
+                  <label *ngIf="form.get('LastName').errors?.required" class="error">Last Name is required</label>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!--./ Last Name End -->
+
+          <!-- User Role Start -->
+          <div class="row">
+            <label for="UserRole" class="col-sm-2 col-form-label">User Role</label>
+            <div class="col-sm-10">
+              <div class="form-group" [class.has-danger]="isInvalidField('UserRole')">
+                <select id="UserRole" class="selectpicker" data-style="select-with-transition" formControlName="UserRole">
+                  <option *ngFor="let role of roles" [value]="role.value">{{role.label}}</option>
+                </select>
+  
+                <ng-container *ngIf="isInvalidField('UserRole')">
+                  <label *ngIf="form.get('UserRole').errors?.required" class="error">Role is required</label>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!--./ User Role End -->
+
+          <!-- User Type Start -->
+          <div class="row">
+            <label for="UserType" class="col-sm-2 col-form-label">User Type</label>
+            <div class="col-sm-10">
+              <div class="form-group" [class.has-danger]="isInvalidField('UserType')">
+                <select id="UserType" class="selectpicker" data-style="select-with-transition" formControlName="UserType">
+                  <option *ngFor="let userType of userTypes" [value]="userType.value">{{userType.label}}</option>
+                </select>
+  
+                <ng-container *ngIf="isInvalidField('UserType')">
+                  <label *ngIf="form.get('UserType').errors?.required" class="error">UserType is required</label>
+                </ng-container>
+              </div>              
+            </div>
+          </div>
+          <!--./ User Type End -->
+
+          <!-- Email Start -->
+          <div class="row">
+            <label for="Email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              <div class="form-group" [class.has-danger]="isInvalidField('Email')">
+                <input class="form-control" id="Email" placeholder="Email" formControlName="Email">
+
+                <ng-container *ngIf="isInvalidField('Email')">
+                  <label *ngIf="form.get('Email').errors?.required" class="error">Email is required</label>
+                  <label *ngIf="form.get('Email').errors?.email" class="error">Email format is wrong</label>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!--./ Email End -->
+
+          <!-- Mobile Start -->
+          <div class="row">
+            <label for="Mobile" class="col-sm-2 col-form-label">Mobile</label>
+            <div class="col-sm-10">
+              <div class="form-group" [class.has-danger]="isInvalidField('Mobile')">
+                <input type="text" class="form-control" id="Mobile" placeholder="Mobile Number" formControlName="Mobile">
+
+                <ng-container *ngIf="isInvalidField('Mobile')">
+                  <label *ngIf="form.get('Mobile').errors?.required" class="error">Mobile Number is required</label>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!--./ Mobile End -->
+
+          <!-- Password Start -->
+          <div class="row">
+            <label for="Password" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+              <div class="form-group" [class.has-danger]="isInvalidField('Mobile')">
+                <input type="password" class="form-control" id="Password" placeholder="Password" formControlName="Password">
+
+                <ng-container *ngIf="isInvalidField('Password')">
+                  <label *ngIf="form.get('Password').errors?.required" class="error">Password is required.</label>
+                  <label *ngIf="form.get('Password').errors?.minlength" class="error">Password must be 6 characters at least.</label>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!--./ Password End -->
+
+          <!-- Password Confirmation Start -->
+          <div class="row">
+            <label for="Password_confirmation" class="col-sm-2 col-form-label">Confirm Password</label>
+            <div class="col-sm-10">
+              <div class="form-group" [class.has-danger]="isInvalidField('Mobile')">
+                <input type="password" class="form-control" id="Password_confirmation" placeholder="Confirm Password" formControlName="Password_confirmation">
+
+                <ng-container *ngIf="isInvalidField('Password_confirmation')">
+                  <label *ngIf="form.get('Password_confirmation').errors?.NotMatchPassword" class="error">Password not matched</label>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <!--./ Password Confirmation End -->
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-success" style="margin-right: 10px;">Save User</button>
+            <a routerLink="/admin/user" class="btn btn-warning">Cancel</a>
+          </div>
+        </form>
+
+      </div>
+    </div>
+    
+
+  </div>
+</div>

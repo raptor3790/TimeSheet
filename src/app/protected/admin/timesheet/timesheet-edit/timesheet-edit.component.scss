@@ -1,0 +1,23 @@
+.card-body {
+    overflow: auto;
+}
+
+.input-time {
+    width: 80px;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.td-time {
+    width: 80px;
+}
+
+.btn {
+    padding: 7px 50px;
+    margin: 10px;
+}
+
+.disabled-div {
+    pointer-events: none;
+    opacity: 0.8;
+}

@@ -1,0 +1,12 @@
+.card {
+    height: calc(100% - 60px);
+}
+
+.card-body {
+    overflow: auto;
+}
+
+#costchart {
+    min-height: 435px;
+    height: 100%;
+}

@@ -1,0 +1,18 @@
+/deep/ .weekpicker .bootstrap-datetimepicker-widget tr:hover {
+    background-color: #AA808080;
+}
+
+::ng-deep .bootstrap-select {
+    width: 100% !important;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+::ng-deep .filter-option {
+    text-align: center !important;
+}
+
+#Week {
+    border-radius: 15px;
+    text-align: center;
+}

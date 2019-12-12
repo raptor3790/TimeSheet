@@ -1,0 +1,57 @@
+<div class="content">
+  <app-loading [condition]="isLoading"></app-loading>
+  
+  <div class="container-fluid">
+
+      <button type="button" class="btn btn-primary btn-block btn-add" routerLink="/admin/project/new">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;&nbsp;Create Project
+      </button>
+      <br />
+
+      <!-- Project Table Start -->
+      <div class="card ">
+        <div class="card-header card-header-icon card-header-info">
+          <div class="card-icon">
+            <i class="material-icons">folder</i>
+          </div>
+        </div>
+        
+        <div class="card-body ">
+          <div class="table-responsive">
+            <table id="project-table" class="table table-striped text-center table-no-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Project Name</th>
+                  <th>Client Name</th>
+                  <th>Budget</th>
+                  <th>Status</th>
+                  <th>Start Date</th>
+                  <th>End Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let project of projects; let rowIndex = index" [routerLink]="['edit', project.ProjectId]">
+                  <td>{{rowIndex + 1}}</td>
+                  <td>{{project.ProjectName}}</td>
+                  <td>{{project.ClientName}}</td>
+                  <td>£ {{project.Budget}}</td>
+                  <td>{{project.Status}}</td>
+                  <td>{{project.StartDate | date:'dd/MM/yyyy'}}</td>
+                  <td>{{project.EndDate | date:'dd/MM/yyyy'}}</td>
+                  <td class="td-actions">
+                    <button type="button" rel="tooltip" class="btn btn-danger" (click)="delete($event, project.ProjectId)">
+                      <i class="material-icons">close</i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--./ Project Table End -->
+
+  </div>
+</div>

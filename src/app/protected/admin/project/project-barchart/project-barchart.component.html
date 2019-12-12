@@ -1,0 +1,12 @@
+<div class="card card-stats">
+  <div class="card-header">
+    <h4 class="card-title">Project Cost</h4>
+  </div>
+  <div class="card-body">
+    <app-loading [condition]="isLoading"></app-loading>
+    <div *ngIf="chart">
+      <canvas id="costchart">{{ chart }}</canvas>
+    </div>
+  </div>
+  <div class="card-footer"></div>
+</div>

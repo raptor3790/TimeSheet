@@ -1,0 +1,43 @@
+.action-container {
+    padding-top: 25px !important;
+    padding: 0.625rem 0;
+    margin-bottom: 20px;
+    height: auto !important;
+    background-color: transparent !important;
+    box-shadow: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+}
+
+.action-link {
+    display: inline-block;
+    &:hover {
+        background-color: rgba(200, 200, 200, 0.2);
+    }
+
+    a {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-weight: 500;
+        font-size: 12px;
+        text-transform: uppercase;
+        border-radius: 3px;
+        color: #fff;
+        margin: 0 15px;
+        position: relative;
+        padding: 10px 15px;
+    }
+
+    .material-icons {
+        margin-top: -3px;
+        top: 0px;
+        position: relative;
+        margin-right: 3px;
+        font-size: 1.25rem;
+        max-width: 24px;
+        vertical-align: middle;
+    }
+}

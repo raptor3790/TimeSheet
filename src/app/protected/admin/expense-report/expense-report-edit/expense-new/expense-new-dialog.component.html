@@ -1,0 +1,104 @@
+<div class="modal-header">
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title">Add Expense</h4>
+
+</div>
+<div class="modal-body">
+  <app-loading [condition]="isLoadingProject || isLoadingTypes || isLoadingExpense"></app-loading>
+  <form [formGroup]="form" class="form-horizontal">
+
+    <div class="row">
+      <label for="ProjectId" class="col-md-3 col-form-label">Project:</label>
+      <div class="col-md-9">
+        <div class="form-group" [class.has-danger]="isInvalidField('ProjectId')">
+          <select id="ProjectId" class="selectpicker" data-style="select-with-transition" 
+            formControlName="ProjectId" (change)="onChangeProject()">
+            <option value="">&nbsp;</option>
+            <option *ngFor="let project of projects" [value]="project.ProjectId">{{project.ProjectName}}</option>
+          </select>
+          <ng-container *ngIf="isInvalidField('ProjectId')">
+            <label *ngIf="form.get('ProjectId').errors?.required" class="error">Please select project.</label>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="SubProjectId" class="col-md-3 col-form-label">Sub Project Type:</label>
+      <div class="col-md-9">
+        <div class="form-group" [class.has-danger]="isInvalidField('SubProjectId')">
+          <select id="SubProjectId" class="selectpicker" data-style="select-with-transition" formControlName="SubProjectId">
+            <option value="">&nbsp;</option>
+            <option *ngFor="let subProject of subProjects" [value]="subProject.SubProjectId">{{subProject.SubProjectName}}</option>
+          </select>
+          <ng-container *ngIf="isInvalidField('SubProjectId')">
+            <label *ngIf="form.get('SubProjectId').errors?.required" class="error">Please select Subproject.</label>
+          </ng-container>          
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="ExpenseTypeId" class="col-md-3 col-form-label">Expense Types:</label>
+      <div class="col-md-9">
+        <div class="form-group" [class.has-danger]="isInvalidField('ExpenseTypeId')">
+          <select id="ExpenseTypeId" class="selectpicker" data-style="select-with-transition" formControlName="ExpenseTypeId">
+            <option value="">&nbsp;</option>
+            <option *ngFor="let exType of expenseTypes" [value]="exType.ExpenseTypeId">{{exType.Type}}</option>
+          </select>
+          <ng-container *ngIf="isInvalidField('ExpenseTypeId')">
+            <label *ngIf="form.get('ExpenseTypeId').errors?.required" class="error">Please select type.</label>
+          </ng-container>          
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="Description" class="col-md-3 col-form-label">Description:</label>
+      <div class="col-md-9">
+        <div class="form-group">
+          <input type="text" class="form-control" formControlName="Description" />
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <label for="ExpenseDate" class="col-md-3 col-form-label">Expense Date:</label>
+      <div class="col-md-9">  
+        <div class="form-group" [class.has-danger]="isInvalidField('ExpenseDate')">
+          <input id="ExpenseDate" type="text" class="form-control" formControlName="ExpenseDate" autocomplete="off" />
+          <ng-container *ngIf="isInvalidField('ExpenseDate')">
+            <label *ngIf="form.get('ExpenseDate').errors?.required" class="error">Please input expense date.</label>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <label for="Cost" class="col-md-3 col-form-label">Cost:</label>
+      <div class="col-md-9">
+        <div class="form-group" [class.has-danger]="isInvalidField('Cost')">
+          <input appOnlyfloat floattype="normal" type="text" class="form-control" formControlName="Cost" />
+          <ng-container *ngIf="isInvalidField('Cost')">
+            <label *ngIf="form.get('Cost').errors?.required" class="error">Please enter cost.</label>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <label for="Cost" class="col-md-3 col-form-label">Image:</label>
+    
+      <div class="col-md-9">
+        <input type="file" class="form-control" formControlName="ImageControl"
+          (change)="handleImage($event)" accept="image/png, image/jpeg"/>
+      </div>
+    </div>
+    
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="onSubmit()">Save Expense</button>
+</div>

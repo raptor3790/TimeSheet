@@ -1,0 +1,67 @@
+<div class="card">
+  <div class="card-header card-header-icon card-header-info">
+    <div class="card-icon">
+      <i class="material-icons">settings</i>
+    </div>
+  </div>
+  
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" class="form-horizontal">
+      <app-loading [condition]="isLoading"></app-loading>
+
+      <!-- Company Name Start -->
+      <div class="row">
+        <label for="CompanyName" class="col-sm-2 col-form-label">Company Name</label>
+        <div class="col-sm-10">
+          <div class="form-group">
+            <input class="form-control" id="CompanyName" [value]="company?.CompanyName" readonly>
+          </div>
+        </div>
+      </div>
+      <!--./ Company Name End -->
+
+      <!-- Organisation Id Start -->
+      <div class="row">
+        <label for="OrgId" class="col-sm-2 col-form-label required">Organistaion Id</label>
+        <div class="col-sm-10">
+          <div class="form-group">
+            <input class="form-control" id="OrgId" [value]="company?.OrgId" readonly>
+          </div>
+        </div>
+      </div>
+      <!--./ Organisation Id End -->
+
+      <!-- Membership Start -->
+      <div class="row">
+        <label for="Membership" class="col-sm-2 col-form-label required">Membership</label>
+        <div class="col-sm-10">
+          <div class="form-group">
+            <input *ngIf="_token.isAdmin()" class="form-control" id="Membership" [value]="company?.Membership"
+              readonly>
+            <select *ngIf="_token.isSuperAdmin()" class="form-control" id="Membership" [(ngModel)]="company.Membership"
+              name="Membership">
+              <option *ngFor="let membership of memberships">{{membership}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!--./ Membership End -->
+
+      <!-- Registration Date Start -->
+      <div class="row">
+        <label for="created_at" class="col-sm-2 col-form-label required">Registration Date</label>
+        <div class="col-sm-10">
+          <div class="form-group">
+            <input class="form-control" id="created_at" [value]="company.created_at"
+              readonly>
+          </div>
+        </div>
+      </div>
+      <!--./ Registration Date End -->
+        
+      <div class="text-center" *ngIf="_token.isSuperAdmin()">
+        <button type="submit" class="btn btn-success" style="margin-right: 10px;">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

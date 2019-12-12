@@ -1,0 +1,180 @@
+<div class="content">
+  <app-loading [condition]="isLoading"></app-loading>
+
+  <div class="container-fluid">
+    <h3>
+      Timesheet for
+      <strong><em>{{currentUser?.FirstName}} {{currentUser?.LastName}}</em></strong> for Week ending - <strong><em>{{endDate}}</em></strong>
+    </h3>
+
+    <!-- Timesheet Table Start -->
+    <div class="card">
+
+      <!-- header -->
+      <div class="card-header card-header-icon card-header-success">
+        <div class="card-icon">
+          <i class="material-icons">access_time</i>
+        </div>
+        <h4 class="card-title">{{startDate}} - {{endDate}}</h4>
+        <h4 class="card-title pull-right">Timesheet Status - <strong class="{{timesheetStatus}}">{{timesheetStatus}}</strong></h4>
+      </div>
+      <!--./ header -->
+      
+      <div class="card-body">
+        <button *ngIf="isDraft() || reEdit" type="button" class="btn btn-success" 
+          (click)="onAddTask()" style="margin-left: 20px;">Add Task</button>
+
+        <div class="table-responsive">
+          <table id="timesheet-table" class="table table-striped text-center table-hover"
+            [ngClass]="{'disabled-div': !(isDraft() || isRejected()) && !reEdit}">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Sub Project</th>
+                <th>Task Name</th>
+                <th>Rate</th>
+                <th>Type</th>
+                <th class="td-time">Mon</th>
+                <th class="td-time">Tue</th>
+                <th class="td-time">Wed</th>
+                <th class="td-time">Thu</th>
+                <th class="td-time">Fri</th>
+                <th class="td-time">Sat</th>
+                <th class="td-time">Sun</th>
+                <th class="td-time">Total</th>
+                <th class="td-time">Total Cost</th>
+              </tr>
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th *ngFor="let number of [6,5,4,3,2,1,0]" class="td-time">
+                  {{orgStartDate}}
+                </th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Input Time Area Start-->
+              <tr *ngFor="let timesheet of timesheets; let rowIndex = index">
+                <td>{{timesheet.ProjectName}}</td>
+                <td>{{timesheet.SubProjectName}}</td>
+                <td>{{timesheet.TaskName}}</td>
+                <td>{{timesheet.Rate ? ('£' + timesheet.Rate) : ''}}</td>
+                <td>{{timesheet.UnitTypeName}}</td>
+                <td class="td-time">
+                  <!-- https://stackoverflow.com/questions/41465542/angular2-input-field-to-accept-only-numbers -->
+                  <input appOnlyfloat class="input-time" type="text" [(ngModel)]="timesheet.Monday">
+                </td>
+                <td class="td-time">
+                  <input appOnlyfloat class="input-time" type="text" [(ngModel)]="timesheet.Tuesday">
+                </td>
+                <td class="td-time">
+                  <input appOnlyfloat class="input-time" type="text" [(ngModel)]="timesheet.Wednesday">
+                </td>
+                <td class="td-time">
+                  <input appOnlyfloat class="input-time" type="text" [(ngModel)]="timesheet.Thursday">
+                </td>
+                <td class="td-time">
+                  <input appOnlyfloat class="input-time" type="text" [(ngModel)]="timesheet.Friday">
+                </td>
+                <td class="td-time">
+                  <input appOnlyfloat class="input-time" type="text" [(ngModel)]="timesheet.Saturday">
+                </td>
+                <td class="td-time">
+                  <input appOnlyfloat class="input-time" type="text" [(ngModel)]="timesheet.Sunday">
+                </td>
+                <td>{{sumOfTask(timesheet, 'unit')| number : '1.2-2'}}</td>
+                <td>£{{sumOfTask(timesheet, 'price')| number : '1.2-2'}}</td>
+              </tr>
+              <!--./ Input Time Area Start-->
+              <tr>
+                <td *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10,11,12,13]">&nbsp;</td>
+              </tr>
+              <tr>
+                <td *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10]"></td>
+                <td>Total</td>
+                <td><span *ngIf="isSameTotalUnit">{{sumOfTotal('unit')| number : '1.2-2'}}</span></td>
+                <td>£{{sumOfTotal('price')| number : '1.2-2'}}</td>
+              </tr>
+              <ng-container *ngIf="false">
+                <tr>
+                  <td *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10,11]"></td>
+                  <td>Tax %{{tax}}</td>
+                  <td>£{{sumOfTax() | number : '1.2-2'}}</td>
+                </tr>
+                <tr>
+                  <td *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10,11]"></td>
+                  <td>Payable</td>
+                  <td>£{{sumOfPayable() | number : '1.2-2'}}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        
+        <br />
+        <p>Comments:</p>
+        <textarea class="form-control border-top border-right border-left" 
+          placeholder="Please input your comment." rows="5" [(ngModel)]="notes" 
+          [disabled]="!(isDraft() || isRejected()) && !reEdit"></textarea>
+        
+        <hr />
+        <ng-container *ngIf="!reEdit">
+          <ng-container *ngIf="isDraft() || isRejected()">
+            <button type="button" class="btn btn-success" (click)="updateTimesheet()">Save</button>
+            <button type="button" class="btn btn-info" (click)="submitTimesheet()">Submit</button>
+          </ng-container>
+          <button *ngIf="isApproved()" type="button" class="btn btn-paid" (click)="payTimesheet()">Paid</button>
+          <button *ngIf="isDraft() || isRejected() || isApproved()" type="button" class="btn btn-danger" (click)="cancelTimesheet()">Cancel</button>
+          
+          <ng-container *ngIf="isSubmitted()">
+            <button type="button" class="btn btn-success" (click)="approveTimesheet()">Approve</button>
+            <button type="button" class="btn btn-danger" (click)="rejectTimesheet()">Reject</button>
+          </ng-container>
+  
+          <button *ngIf="isSubmitted()" type="button" class="btn btn-info"
+            (click)="onReEdit()">Edit</button>
+        </ng-container>
+        
+        <ng-container *ngIf="reEdit">
+          <button type="button" class="btn btn-success" (click)="updateTimesheet()">Save</button>
+        </ng-container>
+        <p *ngIf="isRejected()"><strong>Rejected Reason: </strong><em>{{rejectReason}}</em></p>
+      </div>
+
+    </div>
+    <!--./ Timesheet Table End -->
+
+    <!-- Timeline Start -->
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Timesheet Timeline</h4>
+      </div>
+
+      <div class="card-body">
+        <ul class="timeline">
+          <!-- timeline item start-->
+          <li *ngFor="let timeline of timelines">
+            <i class="fa fa-envelope bg-{{timeline.TimesheetStatus}}"></i>
+        
+            <div class="timeline-item">
+              <span class="time">
+                <i class="fa fa-clock-o"></i> {{timeline.created_at}}</span>
+        
+              <h3 class="timeline-header">
+                {{timeline.UserName}} <span class="{{timeline.TimesheetStatus}}">{{timeline.TimesheetStatus=='Draft' ? 'Created' : timeline.TimesheetStatus}}</span> Timesheet</h3>
+            </div>
+          </li>
+          <!--/. timeline item end-->
+        </ul>
+      </div>
+    </div>
+    <!-- Timeline End -->
+  </div>
+  
+</div>
+  

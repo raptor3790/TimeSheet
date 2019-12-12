@@ -1,0 +1,13 @@
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header {
+    background-color: #3c8dbc;
+}
+
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header>p {
+    color: white;
+}
+
+@media (max-width: 750px) {
+    .logo {
+        display: none;
+    }
+}

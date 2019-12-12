@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title">Project List</h4>
+
+</div>
+<app-loading [condition]="isLoading"></app-loading>
+<div class="modal-body">
+  <form [formGroup]="form" class="form-horizontal">
+    <div class="form-group row">
+      <label for="ProjectId" class="col-sm-2 control-label">Project:</label>
+      <div class="col-sm-10">
+        <ng-multiselect-dropdown
+          [placeholder]="'Project List'"
+          [data]="projectList"
+          [settings]="dropdownSettings"
+          formControlName="Projects"
+          [class.is-invalid]="isInvalidField('Projects')">
+        </ng-multiselect-dropdown>
+        <div *ngIf="isInvalidField('Projects')" class="text-danger">
+          <span *ngIf="form.get('Projects').errors?.required">Project is required</span>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="onAssignProject()">Assign Project</button>
+</div>

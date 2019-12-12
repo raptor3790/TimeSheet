@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-header card-header-icon card-header-success">
+    <div class="card-icon">
+      <i class="material-icons">group</i>
+    </div>
+    <h4 class="card-title">Users assigned to this project</h4>
+    <button type="button" class="btn btn-primary pull-right mt-3" (click)="onAddUser()">Add Users</button>
+  </div>
+  <div class="card-body project">
+    <table id="project-user-table" class="table table-striped text-center table-hover">
+      <thead>
+        <tr>
+          <th>UserId</th>
+          <th>User Name</th>
+          <th>Email</th>
+          <th>Occupation</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let rowIndex = index" (click)="onUserView(user.UserId)">
+          <td>{{user.UserId}}</td>
+          <td>{{user.UserName}}</td>
+          <td>{{user.Email}}</td>
+          <td>{{user.UserOccupation}}</td>
+          <td class="td-actions">
+            <button type="button" rel="tooltip" class="btn btn-danger" (click)="unassignUser($event, user.UserId)">
+              <i class="material-icons">close</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer"></div>
+</div>

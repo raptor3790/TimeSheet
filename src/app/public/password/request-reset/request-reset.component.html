@@ -1,0 +1,22 @@
+<div class="login-box">
+  <div class="login-logo">
+    <img class="img-logo" src="assets/images/logo.png" alt="logo" />
+    <h1 class="app-title">Timesheets</h1>
+  </div>
+  <div class="login-box-body">
+    <p class="login-box-msg">Send Email for Reset password</p>
+    <form #requestResetForm=ngForm (ngSubmit)="onSubmit()">
+      <div class="form-group has-feedback">
+        <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email" [(ngModel)]="form.email" required
+          email>
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!requestResetForm.valid">Send Password Reset Email</button>
+      </div>
+      <a [routerLink]="['/login']" class="pull-right">Login</a>
+      <br />
+    </form>
+  </div>
+
+</div>

@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="card-header card-header-icon card-header-rose">
+    <div class="card-icon">
+      <i class="material-icons">attach_money</i>
+    </div>
+    <h3 class="card-title">Expense Reports</h3>
+  </div>
+  <div class="card-body project">
+    <app-loading [condition]="isLoading"></app-loading>
+
+    <div class="table-responsive">
+      <table id="expense-report-table" class="table table-bordered table-striped text-center table-hover">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Status</th>
+            <th>Date Submitted</th>
+            <th>Total Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of expenseReports; let rowIndex = index" (click)="onEdit(item.UserId, item.ExpenseReportId)">
+            <td>{{item.ExpenseReportId}}</td>
+            <td class="{{item.Status}}">{{item.Status}}</td>
+            <td>{{item.SubmitDate}}</td>
+            <td>{{item.TotalCost ? '£' : ''}}{{item.TotalCost == '.00' ? '0.00' : item.TotalCost}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+</div>

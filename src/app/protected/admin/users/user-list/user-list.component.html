@@ -1,0 +1,56 @@
+<app-loading [condition]="dt_loading"></app-loading>
+<!-- New Button Start -->
+<div *ngIf="_token.isAdmin()" class="form-group" style="margin-top: 16px">
+  <button type="button" class="btn btn-primary btn-add" routerLink="/admin/user/new">
+    <i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;&nbsp;Create User
+  </button>
+</div>
+<!--./ New Button End -->
+
+<!-- User List Start -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-icon card-header-info">
+        <div class="card-icon">
+          <i class="material-icons">group</i>
+        </div>
+      </div>
+      <div class="card-body">
+        <table id="user-table" class="table table-striped text-center">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Email</th>
+              <th>Name</th>
+              <th>User Type</th>
+              <th>User Role</th>
+              <th>Occupation</th>
+              <th>Mobile</th>
+              <th>City</th>
+              <th *ngIf="_token.isAdmin()">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of dt; let rowIndex = index" [routerLink]="['/admin/user/edit', user.UserId]">
+              <td>{{rowIndex + 1}}</td>
+              <td>{{user.Email}}</td>
+              <td>{{user.FirstName}} {{user.LastName}}</td>
+              <td>{{user.UserType}}</td>
+              <td>{{user.UserRole}}</td>
+              <td>{{user.UserOccupation}}</td>
+              <td>{{user.Mobile}}</td>
+              <td>{{user.City}}</td>
+              <td *ngIf="_token.isAdmin()" class="td-actions">
+                <button type="button" rel="tooltip" class="btn btn-danger" (click)="delete($event, user.UserId)">
+                  <i class="material-icons">close</i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!--./ User List End -->

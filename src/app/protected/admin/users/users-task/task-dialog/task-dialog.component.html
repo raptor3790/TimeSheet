@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <h4 class="modal-title">Task Information</h4>
+</div>
+<div class="modal-body">
+  <app-loading [condition]="isLoading"></app-loading>
+  <form [formGroup]="form">
+    <div class="form-group" [class.has-danger]="isInvalidField('TaskName')">
+      <label for="TaskName" class="control-label">Task Name:</label>
+      <input type="text" id="TaskName" formControlName="TaskName" class="form-control">
+      <ng-container *ngIf="isInvalidField('TaskName')">
+        <label *ngIf="form.get('TaskName').errors?.required" class="error">Task Name is required</label>
+      </ng-container>
+    </div>
+    <div class="form-group" [class.has-danger]="isInvalidField('TaskName')">
+      <label for="TaskRate" class="control-label">Task Rate:</label>
+      <input appOnlyfloat type="text" id="TaskRate" formControlName="TaskRate" class="form-control">
+      <ng-container *ngIf="isInvalidField('TaskRate')">
+        <label *ngIf="form.get('TaskRate').errors?.required" class="error">Task Rate is required</label>
+      </ng-container>
+    </div>
+    <div class="form-group" [class.has-danger]="isInvalidField('TaskName')">
+      <label for="TaskUnitType" class="control-label">Task Unit Type:</label>
+      <select class="selectpicker" id="TaskUnitType" formControlName="TaskUnitType" data-style="select-with-transition"
+        [class.is-invalid]="isInvalidField('TaskUnitType')">
+        <option value="">&nbsp;</option>
+        <option *ngFor="let unitType of unitTypes" [value]="unitType.UnitTypeId">{{unitType.Name}}</option>
+      </select>
+      <ng-container *ngIf="isInvalidField('TaskUnitType')">
+        <label *ngIf="form.get('TaskUnitType').errors?.required" class="error">Task Unit is required</label>
+      </ng-container>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="onSaveTask()">Save changes</button>
+</div>

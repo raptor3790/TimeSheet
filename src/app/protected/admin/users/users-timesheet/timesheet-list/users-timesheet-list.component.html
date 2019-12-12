@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-header card-header-icon card-header-info">
+    <div class="card-icon">
+      <i class="material-icons">access_time</i>
+    </div>
+    <h3 class="card-title"><span *ngIf="status != 'ALL'">Submitted </span>Timesheets</h3>
+  </div>
+  
+  <div class="card-body project">
+    <app-loading [condition]="isLoading"></app-loading>
+    <table id="timesheet-table" class="table table-bordered table-striped text-center table-hover">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Status</th>
+          <th>WeekEnding</th>
+          <th *ngIf="_token.isAdmin() || _token.isSuperAdmin()">Total Cost</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let timesheet of timesheets; let rowIndex = index" (click)="onTimesheetView(timesheet.UserId, timesheet.TimesheetId)">
+          <td>{{timesheet.TimesheetId}}</td>
+          <td class="{{timesheet.Status}}">{{timesheet.Status}}</td>
+          <td>{{timesheet.WeekEnding}}</td>
+          <td *ngIf="_token.isAdmin() || _token.isSuperAdmin()">{{timesheet.Total ? '£' : ''}}{{timesheet.Total == '.00' ? '0.00' : timesheet.Total | number:'.2-2'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

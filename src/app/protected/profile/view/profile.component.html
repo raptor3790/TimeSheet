@@ -1,0 +1,280 @@
+<div class="content">
+  <!-- Main content Start -->
+  <div class="container-fluid">
+
+    <!-- profile part -->
+    <div class="row">
+
+      <!-- profile information -->
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header card-header-icon card-header-primary">
+            <div class="card-icon">
+              <i class="material-icons">perm_identity</i>
+            </div>
+            <h4 class="card-title">Edit Profile</h4>
+          </div>
+          <div class="card-body">
+            <form (ngSubmit)="onSubmit()" [formGroup]="form" class="form-profile">
+              <app-loading [condition]="bUpdating"></app-loading>
+
+              <div class="row">
+
+                <!-- First Name Start -->
+                <div class="col-md-4">
+                  <div class="form-group is-filled" [class.has-danger]="isInvalidField('FirstName')">
+                    <label class="bmd-label-floating">First Name</label>
+                    <input formControlName="FirstName" class="form-control" id="FirstName">
+
+                    <ng-container *ngIf="isInvalidField('FirstName')">
+                      <label *ngIf="form.get('FirstName').errors?.required" class="error">First Name is required</label>
+                    </ng-container>
+                  </div>
+                </div>
+                <!--./ First Name End -->
+
+                <!-- Last Name Start -->
+                <div class="col-md-4">
+                  <div class="form-group is-filled" [class.has-danger]="isInvalidField('LastName')">
+                    <label class="bmd-label-floating">Last Name</label>
+                    <input formControlName="LastName" class="form-control" id="LastName">
+                    
+                    <ng-container *ngIf="isInvalidField('LastName')">
+                      <label *ngIf="form.get('LastName').errors?.required" class="error">Last Name is required</label>
+                    </ng-container>
+                  </div>
+                </div>
+                <!--./ Last Name End -->
+
+                <!-- User Occupation Start -->
+                <div class="col-md-4">
+                  <div class="form-group is-filled">
+                    <label class="bmd-label-floating">User Occupation</label>
+                    <input formControlName="UserOccupation" class="form-control" id="UserOccupation">
+                  </div>
+                </div>
+                <!--./ User Occupation End -->
+              </div>
+
+              <div class="row">
+                <!-- Email Start -->
+                <div class="col-md-4">
+                  <div class="form-group is-filled" [class.has-danger]="isInvalidField('Email')">
+                    <label class="bmd-label-floating">Email</label>
+                    <input formControlName="Email" class="form-control" id="Email" />
+
+                    <ng-container *ngIf="isInvalidField('Email')">
+                      <label *ngIf="form.get('Email').errors?.required" class="error">Email is required</label>
+                      <label *ngIf="form.get('Email').errors?.email" class="error">Email format is wrong</label>
+                      <label *ngIf="form.get('Email').errors?.hastaken" class="error">Email has already taken.</label>
+                    </ng-container>
+                  </div>
+                </div>
+                <!--./ Email End -->
+
+                <!-- Mobile Start -->
+                <div class="col-md-4">
+                  <div class="form-group is-filled" [class.has-danger]="isInvalidField('Mobile')">
+                    <label class="bmd-label-floating">Mobile</label>
+                    <input formControlName="Mobile" class="form-control" />
+
+                    <ng-container *ngIf="isInvalidField('Mobile')">
+                      <label *ngIf="form.get('Mobile').errors?.required" class="error">Mobile Number is required</label>
+                    </ng-container>
+                  </div>
+                </div>
+                <!--./ Mobile End -->
+
+                <!-- Telephone Number Start -->
+                <div class="col-md-4">
+                  <div class="form-group is-filled">
+                    <label class="bmd-label-floating">Tel Number</label>
+                    <input formControlName="TelNo" type="text" class="form-control">
+                  </div>
+                </div>
+                <!--./ Telephone Number End -->
+              </div>
+
+              <div class="row">
+                <!-- BankName Start -->
+                <div class="col-md-3">
+                  <div class="form-group is-filled">
+                    <label class="bmd-label-floating">Bank Name</label>
+                    <input formControlName="BankName" type="text" class="form-control">
+                  </div>
+                </div>
+                <!--./ BankName End -->
+
+                <!-- Bank Sort Code Start -->
+                <div class="col-md-3">
+                  <div class="form-group is-filled">
+                    <label class="bmd-label-floating">Bank Sort Code</label>
+                    <input formControlName="BankSortCode" type="text" class="form-control">
+                  </div>
+                </div>
+                <!--./ Bank Sort Code End -->
+
+                <!-- Bank Account Number Start -->
+                <div class="col-md-3">
+                  <div class="form-group is-filled">
+                    <label class="bmd-label-floating">Bank Account Number</label>
+                    <input formControlName="BankAccountNumber" type="text" class="form-control">
+                  </div>
+                </div>
+                <!--./ Bank Account Number End -->
+
+                <!-- Tax Reference Start -->
+                <div class="col-md-3">
+                  <div class="form-group is-filled">
+                    <label class="bmd-label-floating">Tax Reference</label>
+                    <input formControlName="TaxReference" type="text" class="form-control">
+                  </div>
+                </div>
+                <!--./ Tax Reference End -->
+              </div>
+
+              <div class="row">
+                <!-- AddressLine1 Start -->
+                <div class="col-md-3">
+                  <div class="form-group is-filled">
+                    <label class="bmd-label-floating">AddressLine1</label>
+                    <input formControlName="AddressLine1" type="text" class="form-control">
+                  </div>
+                </div>
+                <!--./ AddressLine1 End -->
+
+                <!-- AddressLine2 Start -->
+                <div class="col-md-3">
+                  <div class="form-group is-filled">
+                    <label class="bmd-label-floating">AddressLine2</label>
+                    <input formControlName="AddressLine2" type="text" class="form-control">
+                  </div>
+                </div>
+                <!--./ AddressLine2 End -->
+
+                <!-- City Start -->
+                <div class="col-md-3">
+                  <div class="form-group is-filled">
+                    <label class="bmd-label-floating">City</label>
+                    <input formControlName="City" type="text" class="form-control">
+                  </div>
+                </div>
+                <!--./ City End -->
+
+                <!-- PostCode Start -->
+                <div class="col-md-3">
+                  <div class="form-group is-filled">
+                    <label class="bmd-label-floating">PostCode</label>
+                    <input formControlName="PostCode" type="text" class="form-control">
+                  </div>
+                </div>
+                <!--./ PostCode End -->
+              </div>
+
+              <div class="row">
+                <!-- Password Start -->
+                <div class="col-md-4">
+                  <div class="form-group is-filled" [class.has-danger]="isInvalidField('Password')">
+                    <label class="bmd-label-floating">Password</label>
+                    <input type="password" formControlName="Password" class="form-control" />
+
+                    <ng-container *ngIf="isInvalidField('Password')">
+                      <label *ngIf="form.get('Password').errors?.required" class="error">Password is required.</label>
+                      <label *ngIf="form.get('Password').errors?.minlength" class="error">Password must be 6 characters at least.</label>
+                    </ng-container>
+                  </div>
+                </div>
+                <!--./ Password End -->
+
+                <!-- Password Confirmation Start -->
+                <div class="col-md-4">
+                  <div class="form-group is-filled" [class.has-danger]="isInvalidField('Password_confirmation')">
+                    <label class="bmd-label-floating">Confirm Password</label>
+                    <input type="password" formControlName="Password_confirmation" class="form-control" />
+
+                    <ng-container *ngIf="isInvalidField('Password_confirmation')">
+                      <label *ngIf="form.get('Password_confirmation').errors?.NotMatchPassword" class="error">Password not matched</label>
+                    </ng-container>
+                  </div>
+                </div>
+                <!--./ Password Confirmation End -->
+              </div>
+
+              <!-- Email Notification Start -->
+              <div class="form-group row">
+                <label class="col-md-3 text-right form-label">Email Notifications</label>
+                <div class="col-md-6">
+                  <label class="switch">
+                    <input type="checkbox" class="form-control" id="EmailNotification" formControlName="EmailNotification">
+                    <span class="slider round"></span>
+                  </label>
+                </div>
+              </div>
+              <!--./ Email Notification End -->
+
+              <button type="submit" class="btn btn-success pull-right">Update Profile</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- profile information -->
+
+      <!-- image profile -->
+      <div class="col-md-4">
+        <app-loading [condition]="uploadingImg"></app-loading>
+        <div class="card card-profile">
+          <div class="card-avatar">
+            <img class="img" [src]="photoUrl" alt="User profile picture" />
+          </div>
+          <div class="card-body">
+            <h6 class="card-category text-gray">{{currentUser.UserOccupation}}</h6>
+            <h4 class="card-title">{{currentUser.FirstName}} {{currentUser.LastName}}</h4>
+            <p class="card-description">{{currentUser.Mobile}}</p>
+            <p class="card-description">{{currentUser.Email}}</p>
+            <label class="btn btn-primary btn-round btn-file">
+              Change Picture
+              <input type="file" style="display: none;" (change)="handlePhotoInput($event.target.files)">
+            </label>
+          </div>
+        </div>
+      </div>
+      <!-- image profile -->
+
+    </div>
+    <!--./ profile part -->
+
+    <ng-container *ngIf="_tokenService.isAdmin(); else noAdmin;">
+      <!-- assigned part -->
+      <div class="row">
+        <div class="col-md-6">
+          <app-users-projects [userId]="currentUser.UserId"></app-users-projects>
+        </div>
+
+        <div class="col-md-6">
+          <app-task-users [userId]="currentUser.UserId"></app-task-users>
+        </div>
+      </div>
+      <!--./ assigned part -->
+
+      <div class="row">
+        <div class="col-md-6">
+          <app-users-timesheet [userId]="currentUser.UserId" [status]="'ALL'"></app-users-timesheet>
+        </div>
+
+        <div class="col-md-6">
+          <app-users-expense [userId]="currentUser.UserId"></app-users-expense>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #noAdmin>
+      <div class="row">
+        <div class="col-md-6">
+          <app-profile-projects></app-profile-projects>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <!-- /.Main content End -->
+</div>

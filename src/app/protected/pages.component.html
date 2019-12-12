@@ -1,0 +1,18 @@
+<div class="wrapper">
+    <app-admin-sidebar *ngIf="_tokenService.isAdmin()"></app-admin-sidebar>
+
+    <app-super-sidebar *ngIf="_tokenService.isSuperAdmin()"></app-super-sidebar>
+
+    <app-sidebar *ngIf="!_tokenService.isAdmin() && !_tokenService.isSuperAdmin()"></app-sidebar>
+
+    <div class="main-panel">
+        <app-header></app-header>
+        
+        <!-- https://stackoverflow.com/questions/45720655/access-router-outlet-component-from-parent/45721217 -->
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+    </div>
+    
+    
+    
+    <app-footer></app-footer>
+</div>

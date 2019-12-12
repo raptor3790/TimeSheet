@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-header card-header-icon card-header-info">
+    <div class="card-icon">
+      <i class="material-icons">folder</i>
+    </div>
+    <h4 class="card-title">Sub Project Information</h4>
+    <button type="button" class="btn btn-primary pull-right mt-3" (click)="addSubProject()">Add Sub Project</button>
+  </div>
+  <div class="card-body project">
+    <app-loading [condition]="isLoading"></app-loading>
+    <table id="subprojects-table" class="table table-striped text-center table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let subProject of subProjects; let rowIndex = index" (click)="editSubproject(subProject)">
+          <td>{{subProject.SubProjectId}}</td>
+          <td>{{subProject.SubProjectName}}</td>
+          <td>{{subProject.Status}}</td>
+          <td class="td-actions">
+            <button type="button" rel="tooltip" class="btn btn-danger" (click)="delete($event, subProject.SubProjectId)">
+              <i class="material-icons">close</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer"></div>
+</div>

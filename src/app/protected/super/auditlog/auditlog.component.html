@@ -1,0 +1,53 @@
+<div class="content">
+  
+  <!-- Main content Start-->
+  <div class="container-fluid">
+    <app-loading [condition]="isLoading"></app-loading>
+
+    <div class="card">
+      <div class="card-header card-header-success card-header-icon">
+        <div class="card-icon">
+          <i class="material-icons">weekend</i>
+        </div>
+        <h3 class="card-title">Logs</h3>
+      </div>
+      
+
+      <div class="card-body">
+        <table id="log-table" class="table no-margin">
+          <thead>
+            <tr>
+              <th>OrgId</th>
+              <th>Company Name</th>
+              <th>User Name</th>
+              <th>Action</th>
+              <th>Action Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="test" *ngFor="let log of logs">
+              <td>
+                {{log.OrgId}}
+              </td>
+              <td>
+                {{log.CompanyName}}
+              </td>
+              <td>
+                {{log.UserName}}
+              </td>
+              <td>
+                {{log.UserAction}}
+              </td>
+              <td>
+                {{log.ActionTimestamp}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- /.table-responsive -->
+      </div>
+      <!-- /.box-body -->
+    </div>
+  </div>
+  <!-- /.Main content End -->
+</div>

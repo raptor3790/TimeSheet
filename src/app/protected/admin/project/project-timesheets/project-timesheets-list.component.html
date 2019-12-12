@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-header card-header-icon card-header-info">
+    <div class="card-icon">
+      <i class="material-icons">access_time</i>
+    </div>
+    <h4 class="card-title">Timesheets assigned to this {{ type }}</h4>
+  </div>
+  <div class="card-body project">
+    <app-loading [condition]="isLoading"></app-loading>
+    <table id="project-timesheet-table" class="table table-striped text-center table-hover">
+      <thead>
+        <tr>
+          <th>User Name</th>
+          <th>Status</th>
+          <th>Total</th>
+          <th>WeekEnding</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let timesheet of timesheets; let rowIndex = index" (click)="onTimesheetView(timesheet.UserId, timesheet.TimesheetId)">
+          <td>{{timesheet.UserName}}</td>
+          <td class="{{timesheet.Status}}">{{timesheet.Status}}</td>
+          <td>{{timesheet.Total ? '£' : ''}}{{timesheet.Total | number : '1.2-2'}}</td>
+          <td>{{timesheet.WeekEnding | date:'dd/MM/yyyy'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer"></div>
+</div>

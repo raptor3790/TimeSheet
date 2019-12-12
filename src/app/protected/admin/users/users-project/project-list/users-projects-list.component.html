@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-header card-header-icon card-header-success">
+    <div class="card-icon">
+      <i class="material-icons">folder</i>
+    </div>
+    <h3 class="card-title">Assigned Projects</h3>
+    <button class="btn btn-primary btn-sm pull-right mt-3" (click)="addProject()">Add Project</button>
+  </div>
+  <div class="card-body project">
+    <app-loading [condition]="isLoading"></app-loading>
+    <table id="project-table" class="table table-bordered table-striped text-center table-hover">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Project Name</th>
+          <th>Client Name</th>
+          <th>Budget</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of projects; let rowIndex = index" (click)="onProjectView(project.ProjectId)">
+          <td>{{rowIndex + 1}}</td>
+          <td>{{project.ProjectName}}</td>
+          <td>{{project.ClientName}}</td>
+          <td>{{project.Budget ? '£' : ''}}{{project.Budget}}</td>
+          <td>{{project.Status}}</td>
+          <td class="td-actions">
+            <button type="button" rel="tooltip" class="btn btn-danger" (click)="delete($event, project.UserProjectId)">
+              <i class="material-icons">close</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

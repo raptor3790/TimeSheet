@@ -1,0 +1,20 @@
+.input-daterange {
+    position:absolute;
+    width: 0;
+    height: 0;
+    z-index: -1;
+}
+
+#weekpicker-start {
+    display: none;
+}
+
+#weekpicker-end{
+    width: 0;
+    height: 0;
+}
+
+.form-col-label {
+    margin-top: 25px;
+    text-align: right;
+}
